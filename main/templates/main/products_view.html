@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+ List of all products
+{% endblock %}
+
+{% block headline %}  
+<h1>Product Overview</h1>
+{% endblock %}
+
+{% block content %}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Supplier</th>
+            <th>Category</th>
+            <!--<th># / Unit</th>-->
+            <th>Price</th>
+            <th># In Stock</th>
+            <th># On Order</th>
+            <th>RO Lvl</th>
+            <th>Discontinued?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.product_id }}</td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.supplier_id }}</td>
+            <td>{{ product.category_id }}</td>
+            <!--<td>{{ product.quantity_per_unit }}</td>-->
+            <td>{{ product.unit_price }}</td>
+            <td>{{ product.units_in_stock }}</td>
+            <td>{{ product.units_on_order }}</td>
+            <td>{{ product.reorder_level }}</td>
+            <td>{% if product.discontinued == 1 %}
+					Yes
+				{% else %}
+					- 
+				{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

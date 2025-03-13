@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+ List of all shippers
+{% endblock %}
+
+
+{% block content %}
+<h1>Shippers Overview</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Shipper ID</th>
+            <th>Company Name</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for shipper in shippers %}
+        <tr>
+            <td>{{ shipper.shipper_id }}</td>
+            <td>{{ shipper.company_name }}</td>
+            <td>{{ shipper.phone }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

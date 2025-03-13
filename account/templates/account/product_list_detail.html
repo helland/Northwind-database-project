@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+
+{% block title %}Product List Details{% endblock %}
+
+{% block headline %}
+<h1>{{ product_list.name }}</h1>
+{% endblock %}
+
+{% block content %}
+    <p>Created on: {{ product_list.created_at|date:"F j, Y" }}</p>
+    <h2>Products in this list:</h2>
+    
+    {% if products %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Units in Stock</th>
+                    <th>Supplier Name</th>
+                    <th>Category Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_id }}</td>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.unit_price }}</td>
+                        <td>{{ product.units_in_stock }}</td>
+                        <td>{{ product.supplier_name }}</td>
+                        <td>{{ product.category_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products in this list.</p>
+    {% endif %}
+    
+    <a href="{% url 'product-lists' %}">Back to My Product Lists</a>
+{% endblock %}

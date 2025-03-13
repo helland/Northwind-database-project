@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+ List of all suppliers
+{% endblock %}
+
+
+{% block content %}
+<h1>Suppliers Overview</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Supplier ID</th>
+            <th>Company Name</th>
+            <th>Contact Name</th>
+            <th>Contact Title</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Region</th>
+            <th>Postal Code</th>
+            <th>Country</th>
+            <th>Phone</th>
+            <th>Fax</th>
+            <th>Homepage</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for supplier in suppliers %}
+        <tr>
+            <td>{{ supplier.supplier_id }}</td>
+            <td>{{ supplier.company_name }}</td>
+            <td>{{ supplier.contact_name }}</td>
+            <td>{{ supplier.contact_title }}</td>
+            <td>{{ supplier.address }}</td>
+            <td>{{ supplier.city }}</td>
+            <td>{{ supplier.region }}</td>
+            <td>{{ supplier.postal_code }}</td>
+            <td>{{ supplier.country }}</td>
+            <td>{{ supplier.phone }}</td>
+            <td>{{ supplier.fax }}</td>
+            <td>{{ supplier.homepage }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

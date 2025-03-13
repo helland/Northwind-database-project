@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+ Northwind - Home Page 
+{% endblock %}
+
+{% block headline %}  
+	<h1 class="mt-2">Northwind</h1>
+	<hr class="mt-0 mb-4">
+{% endblock %}	
+
+{% block content %}
+
+<p>This is the front page. </p>
+{% endblock %}
+
+
+{% block logged_out_content %}
+<p>Most content requires you to log in, which can be done <a href="/login">Here</p>
+	
+{% endblock %}
+
+{% block logged_in_content %}
+<p>You are logged in as {{ user.username }}. Most content is now available to you!</p>
+	
+{% endblock %}

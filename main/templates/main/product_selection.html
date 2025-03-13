@@ -1,0 +1,53 @@
+
+
+{% extends 'main/base.html' %}
+
+{% block title %}
+ List of all products
+{% endblock %}
+
+{% block headline %}  
+<h1>Create a list of products</h1>
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="action" value="add">Add</button>
+    <button type="submit" name="action" value="save">Save List</button>
+</form>
+
+<h2>Selected Products</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Units in Stock</th>
+            <th>Company Name</th>
+            <th>Category Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in selected_products %}
+        <tr>
+            <td>{{ product.product_id }}</td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.unit_price }}</td>
+            <td>{{ product.units_in_stock }}</td>
+            <td>{{ product.supplier_id.company_name }}</td>
+            <td>{{ product.category_id.category_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+  {% for message in messages %}
+      <p id="messages">{{ message }}</p>
+  {% endfor %}
+  
+  
+	{% endblock %}

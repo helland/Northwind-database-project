@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+
+{% block title %}Lists of products {% endblock %}
+
+{% block headline %}  
+<h1>Your product lists</h1>
+{% endblock %}
+
+{% block content %}
+{% if product_lists %}
+    <ul>
+        {% for product_list in product_lists %}
+            <li>
+                <strong>{{ product_list.name }}</strong> - Created on {{ product_list.created_at|date:"F j, Y" }}
+                <br>
+                <a href="{% url 'product-list-details' product_list.product_list_id %}">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You have no product lists yet.</p>
+{% endif %}
+
+{% endblock %}

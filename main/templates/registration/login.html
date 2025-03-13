@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Login Here
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block headline %}  
+<h1>Log in</h1>
+{% endblock %}
+
+
+{% block logged_out_content %}
+	<form method="post", class="form-group">
+		{% csrf_token %}
+		{{ form|crispy }}
+		<p>Don't have an account? Create one <a href="/sign-up">here</a></p>
+		<button type="submit", class="btn btn-success">Login</button>
+	</form>
+	
+{% endblock %}
+
+
+{% block logged_in_content %}
+	{% for message in messages %}
+		<p id="messages">{{ message }}</p>
+	{% endfor %}
+	
+	Hi {{ user.username }}!
+	<form action="{% url 'logout' %}" method="post">
+		  {% csrf_token %}
+		  <button type="submit" class="btn btn-success">Log Out</button>
+	</form>
+{% endblock %}

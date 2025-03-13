@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+ Demographics
+{% endblock %}
+
+{% block headline %}  
+<h1>Customer Demographics Overview</h1>
+{% endblock %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer Type ID</th>
+            <th>Customer Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for demographic in customer_demographics %}
+        <tr>
+            <td>{{ demographic.customer_type_id }}</td>
+            <td>{{ demographic.customer_desc }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
