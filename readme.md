@@ -91,7 +91,14 @@ python manage.py runserver
 * Open your web browser and navigate to http://127.0.0.1:8000/.
 * Use the login/sign-up links to create an account or log in.
 * Navigate through the various links to explore the data.
+
+![Front page](img/frontpage.png)
+
 * Create custom product lists via the "misc" page.
+
+![Create list](img/listcreation.png)
+
+
 * View user-specific product lists via the "account" page.
 * Use the admin interface (/admin/) to manage data.
 
