@@ -1,50 +1,28 @@
 {% extends 'main/base.html' %}
 
-
 {% block title %}
  List of all orders
 {% endblock %}
-
 
 {% block content %}
 <h1>Overview of all orders</h1>
 <table class="table">
     <thead>
         <tr>
-            <th>Order ID</th>
-            <th>Customer ID</th>
-            <th>Employee ID</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Shipped Date</th>
-            <th>Ship Via</th>
-            <th>Freight</th>
-            <th>Ship Name</th>
-            <th>Ship Address</th>
-            <th>Ship City</th>
-            <th>Ship Region</th>
-            <th>Ship Postal Code</th>
-            <th>Ship Country</th>
+            <th><a href="?sort_by=order_id&sort_order={% if sort_by == 'order_id' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Order ID</a></th>
+            <th><a href="?sort_by=customer_name&sort_order={% if sort_by == 'order_id__customer_id__company_name' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Customer Name</a></th>
+            <th><a href="?sort_by=product_name&sort_order={% if sort_by == 'product_id__product_name' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Product Name</a></th>
+            <th><a href="?sort_by=quantity&sort_order={% if sort_by == 'quantity' and sort_order == 'asc' %}desc{% else %}asc{% endif %}">Quantity</a></th>
         </tr>
     </thead>
     <tbody>
-        {% for ord in orders %}
-        <tr>
-            <td>{{ ord.order_id }}</td>
-            <td>{{ ord.customer_id }}</td>
-            <td>{{ ord.employee_id }}</td>
-            <td>{{ ord.order_date }}</td>
-            <td>{{ ord.required_date }}</td>
-            <td>{{ ord.shipped_date }}</td>
-            <td>{{ ord.ship_via }}</td>
-            <td>{{ ord.freight }}</td>
-            <td>{{ ord.ship_name }}</td>
-            <td>{{ ord.ship_address }}</td>
-            <td>{{ ord.ship_city }}</td>
-            <td>{{ ord.ship_region }}</td>
-            <td>{{ ord.ship_postal_code }}</td>
-            <td>{{ ord.ship_country }}</td>
-        </tr>
+        {% for detail in order_details %}
+            <tr>
+                <td>{{ detail.order_id }}</td>
+                <td>{{ detail.order_id__customer_id__company_name }}</td>
+                <td>{{ detail.product_id__product_name }}</td>
+                <td>{{ detail.quantity }}</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>         

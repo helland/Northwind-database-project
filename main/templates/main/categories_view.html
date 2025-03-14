@@ -14,7 +14,6 @@
             <th>Category ID</th>
             <th>Category Name</th>
             <th>Description</th>
-            <th>Picture</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +22,6 @@
             <td>{{ category.category_id }}</td>
             <td>{{ category.category_name }}</td>
             <td>{{ category.description }}</td>
-            <td><img src="data:image/png;base64,{{ category.picture|b64encode }}" alt="Category Image" /></td>
         </tr>
         {% endfor %}
     </tbody>

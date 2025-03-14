@@ -4,7 +4,18 @@ from django.template.defaultfilters import default
 
 
 
+
+
+
 # Create your models here.
+# custom manager for the Order_details model that will allow us to fetch the data without relying on the default id  
+class OrderDetailsManager(models.Manager):
+    def get_queryset(self):
+        # Return the queryset without trying to access the 'id' field
+        return super().get_queryset().only('order_id', 'product_id', 'unit_price', 'quantity', 'discount')
+
+
+
 
 # available supliers
 class Suppliers(models.Model):
@@ -121,6 +132,8 @@ class Order_details(models.Model):
     quantity = models.PositiveSmallIntegerField(blank=False)
     discount = models.DecimalField(max_digits=4, decimal_places=2, blank=False)  #percentage 
 
+    objects = OrderDetailsManager() # prevent searches for a primary key that doesn't exist
+    
     def __str__(self):
         return self.order_id
 
@@ -248,7 +261,8 @@ class Employee_territories(models.Model):
 
 
 
-# models not a part of initial imported database
+# models not a part of initial imported database    
+    
 class ProductList(models.Model):
     product_list_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)  
@@ -274,3 +288,4 @@ class ProductListEntry(models.Model):
 
     def __str__(self):
         return f"{self.product_list.name} - {self.product.product_name}"
+

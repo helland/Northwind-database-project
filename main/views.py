@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib import messages
 from northwind.settings import LOGIN_REDIRECT_URL
 from django.utils import timezone
-
-
+from django.db.models import Prefetch
+from django.db.models import F, Sum
 
 # Create your views here.
 
@@ -37,12 +37,44 @@ def orders_place(request):
         
     return render(request, "main/orders_create.html", {})   #"form":form
 
-# overview of all orders
 @login_required(login_url=LOGIN_REDIRECT_URL) 
 def orders_view(request):
-    orders = Orders.objects.all()
-    return render(request, "main/orders_view.html", {"orders": orders})  
-    
+    # Create a custom queryset that combines Orders, Order_details, and Products
+    order_details = (
+        Order_details.objects
+        .select_related('product_id', 'order_id__customer_id')  # Join with Products and Orders
+        .values(
+            'order_id', 
+            'product_id', 
+            'product_id__product_name', 
+            'order_id__customer_id__company_name', 
+            'quantity', 
+            'unit_price'
+        )
+    )
+
+    # Handle sorting
+    sort_by = request.GET.get('sort_by', 'order_id')  # Default sort by order_id
+    sort_order = request.GET.get('sort_order', 'asc')  # Default sort order
+
+    # Map the sort_by to the correct field names
+    if sort_by == 'customer_name':
+        sort_by = 'order_id__customer_id__company_name'
+    elif sort_by == 'product_name':
+        sort_by = 'product_id__product_name'
+
+    if sort_order == 'desc':
+        sort_by = '-' + sort_by  # Prefix with '-' for descending order
+
+    # Sort the queryset
+    order_details = order_details.order_by(sort_by)
+
+    return render(request, "main/orders_view.html", {
+        "order_details": order_details,
+        "sort_by": sort_by,
+        "sort_order": sort_order
+    })
+  
 # overview of demographics
 @login_required(login_url=LOGIN_REDIRECT_URL) 
 def demo_view(request):
@@ -58,8 +90,8 @@ def misc(request):
 # overview of orders in detail
 @login_required(login_url=LOGIN_REDIRECT_URL) 
 def order_details_view(request):
-    order_detail = Order_details.objects.all()
-    return render(request, "main/order_details_view.html", {"order_detail": order_detail})  
+    order_details = Order_details.objects.all()
+    return render(request, "main/order_details_view.html", {"order_details": order_details})  
     
     
 # overview of all suppliers
@@ -166,7 +198,7 @@ def categories_view(request):
 @login_required(login_url="registration/login.html") 
 def customers_view(request):
     customers = Customers.objects.all()
-    return render(request, "main/customers_view.html", {"custormers":customers})  
+    return render(request, "main/customers_view.html", {"customers":customers})  
 
 # overview of all employees
 @login_required(login_url="registration/login.html") 

@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'northwind',
         'USER': 'postgres',
-        'PASSWORD': 'Ganymedes8787',
+        'PASSWORD': 'pass',
         'HOST': 'localhost', #northwind.c72q82i6i97m.eu-north-1.rds.amazonaws.com
         'PORT': '5432'
     }
